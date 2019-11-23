@@ -6,7 +6,7 @@ import useModal from "../hooks/useModal"
 import FormGroups from "./FormGroups"
 
 const ModalGroups = ({ currentGroup = null, sendResult = false, inSentence = false, refresh }) => {
-    const [isModal, toggleModal] = useModal()
+    const [isModal, toggleModal, toggleModalForce, setFormDirty] = useModal()
 
     return (
         <Fragment>
@@ -20,7 +20,7 @@ const ModalGroups = ({ currentGroup = null, sendResult = false, inSentence = fal
             )}
             {!Boolean(currentGroup) && (
                 <AddButton
-                    content={(inSentence ? "přidejte novou" : "Přidat") + " skupinu"}
+                    content={`${inSentence ? "přidejte novou" : "Přidat"} skupinu`}
                     small={inSentence}
                     onClick={toggleModal}
                     data-qa="button_add_group"
@@ -30,6 +30,8 @@ const ModalGroups = ({ currentGroup = null, sendResult = false, inSentence = fal
                 <FormGroups
                     group={Boolean(currentGroup) ? currentGroup : {}}
                     funcClose={toggleModal}
+                    funcForceClose={toggleModalForce}
+                    setFormDirty={setFormDirty}
                     funcRefresh={refresh}
                     sendResult={sendResult}
                 />
